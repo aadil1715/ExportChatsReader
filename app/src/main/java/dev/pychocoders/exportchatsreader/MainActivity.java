@@ -22,10 +22,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final EditText c;
-        Button b;
+        Button b,browse;
 
-        c = (EditText)findViewById(R.id.ans);
+        browse = (Button)findViewById(R.id.browse);
         b = (Button)findViewById(R.id.button);
+
+        browse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType("text/*");
+                startActivity(i);
+            }
+        });
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
