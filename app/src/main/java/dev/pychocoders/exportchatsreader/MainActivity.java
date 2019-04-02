@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("text/*");
+                i.setType("*/*");
 
                 startActivityForResult(i, 123);
             }
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 try {
                     BufferedReader fr = new BufferedReader(new FileReader(chat));
-                    StringBuilder st = new StringBuilder(100000);
+                    StringBuilder st = new StringBuilder();
                     String line;
                     while ((line = fr.readLine()) != null){
                         st.append(line).append("\n");
@@ -86,7 +86,13 @@ public class MainActivity extends AppCompatActivity {
             Uri uri;
             if(data != null){
                 uri = data.getData();
-                launchFile(uri.getPath());
+                if (uri != null) {
+                    String path = uri.getPath();
+                    launchFile(path);
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"Cant access ",Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         File chat = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + paths[1]);
         try {
             BufferedReader fr = new BufferedReader(new FileReader(chat));
-            StringBuilder st = new StringBuilder(1000000000);
+            StringBuilder st = new StringBuilder();
             String line;
             while ((line = fr.readLine()) != null){
                 st.append(line).append("\n");
