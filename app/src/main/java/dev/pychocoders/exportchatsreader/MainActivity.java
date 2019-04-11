@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -84,11 +85,18 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 123 && resultCode == Activity.RESULT_OK){
             Uri uri;
+            TextView con = (TextView) findViewById(R.id.content);
             if(data != null){
                 uri = data.getData();
                 if (uri != null) {
                     String path = uri.getPath();
-                    launchFile(path);
+                    Toast.makeText(MainActivity.this,path,Toast.LENGTH_LONG).show();
+                    if (path != null) {
+                        launchFile(path);
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
                     Toast.makeText(MainActivity.this,"Cant access ",Toast.LENGTH_LONG).show();
